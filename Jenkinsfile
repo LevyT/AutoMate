@@ -22,7 +22,7 @@ node {
         }
     }
         stage('Deploy image') {
-        sh "scp -i ~/key.pem docker-compose.yml ubuntu@registry.bounceme.net:/tmp/"
-        sh "ssh -i ~/key.pem ubuntu@registry.bounceme.net docker-compose -f /tmp/docker-compose.yml up -d"
+        sh "scp -i  ~/key.pem -o StrictHostKeyChecking=no docker-compose.yml ubuntu@registry.bounceme.net:/tmp/"
+        sh "ssh -i ~/key.pem ubuntu@registry.bounceme.net 'docker login -u username -p docker registry.bounceme.net; docker-compose -f /tmp/docker-compose.yml up -d'"
     }
 }
