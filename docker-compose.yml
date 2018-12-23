@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  node-webapp:
+    image: registry.bounceme.net/test-nodejs
+    container_name: node-webapp
+    ports:
+       - "1234:8888"

@@ -21,4 +21,8 @@ node {
             app.push("latest")
         }
     }
+        stage('Deploy image') {
+        sh "scp -i ~/key.pem docker-compose.yml ubuntu@registry.bounceme.net:/tmp/"
+        sh "ssh -i ~/key.pem ubuntu@registry.bounceme.net docker-compose -f /tmp/docker-compose.yml up -d"
+    }
 }
