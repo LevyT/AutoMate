@@ -6,12 +6,19 @@ node {
     }
 
     stage('Build image') {
-        app = docker.build("test-nodejs")
+        app = docker.build("registry.bounceme.net/test-nodejs")
     }
 
     stage('Test image') {
         app.inside {
             sh 'echo "Built Successfully"'
+        }
+    }
+
+    stage('Push image') {
+        docker.withRegistry('https://registry.bounceme.net', 'Private-Reg') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
         }
     }
 }
